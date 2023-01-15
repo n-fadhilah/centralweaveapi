@@ -1,24 +1,42 @@
 const db = require("../models");
 const Unit = db.units;
 
+exports.createmultiple = (req, res) => {
+  let items = req.body.map((item) => {
+    return {
+      block: item.block,
+      floor: item.floor,
+      unit: item.unit,
+      price: item.price,
+      unitnum: item.unitnum,
+      isavailable: item.isavailable,
+    };
+  });
+
+  Unit.insertMany(items)
+    .then((data) => {
+      res.status(200).json("Units added!");
+      res.send(data);
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
+};
+
 // Create and Save a new Unit
 exports.create = (req, res) => {
   // Validate request
-  // if (!req.body.unitnum) {
+  // if (!item.unitnum) {
   //   res.status(400).send({ message: "Content can not be empty!" });
   //   return;
   // }
-
   // Create a Unit
   const unit = new Unit({
-    block: req.body.block,
-    floor: req.body.floor,
-    unit: req.body.unit,
-    price: req.body.price,
-    unitnum: req.body.unitnum,
-    isavailable: req.body.isavailable,
+    block: item.block,
+    floor: item.floor,
+    unit: item.unit,
+    price: item.price,
+    unitnum: item.unitnum,
+    isavailable: item.isavailable,
   });
-
   // Save Unit in the database
   unit
     .save(unit)
@@ -62,7 +80,7 @@ exports.findOne = (req, res) => {
 
 // Update a Unit by the id in the request
 exports.update = (req, res) => {
-  if (!req.body) {
+  if (!item) {
     return res.status(400).send({
       message: "Data to update can not be empty!",
     });
@@ -70,7 +88,7 @@ exports.update = (req, res) => {
 
   const id = req.params.id;
 
-  Unit.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+  Unit.findByIdAndUpdate(id, item, { useFindAndModify: false })
     .then((data) => {
       if (!data) {
         res.status(404).send({

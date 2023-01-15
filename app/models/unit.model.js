@@ -8,7 +8,7 @@ module.exports = (mongoose) => {
       unitnum: String,
       isavailable: Boolean,
     },
-    { timestamps: true }
+    { timestamps: true, isavailable: true }
   );
 
   schema.method("toJSON", function () {
