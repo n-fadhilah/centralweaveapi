@@ -15,7 +15,6 @@ exports.createmultiple = (req, res) => {
 
   Unit.insertMany(items)
     .then((data) => {
-      res.status(200).json("Units added!");
       res.send(data);
     })
     .catch((err) => res.status(400).json("Error: " + err));

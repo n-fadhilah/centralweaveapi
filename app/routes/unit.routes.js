@@ -7,7 +7,7 @@ module.exports = (app) => {
   router.post("/", units.create);
 
   //Create multiple units
-  router.post("/multiple", units.createmultiple);
+  router.put("/", units.createmultiple);
 
   // Retrieve all Tutorials
   router.get("/", units.findAll);
