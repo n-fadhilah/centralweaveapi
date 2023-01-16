@@ -9,7 +9,7 @@ exports.createmultiple = (req, res) => {
       unit: item.unit,
       price: item.price,
       unitnum: item.unitnum,
-      isavailable: item.isavailable,
+      isavailable: item.isavailable ? item.isavailable : false,
     };
   });
 
@@ -79,21 +79,31 @@ exports.findOne = (req, res) => {
 
 // Update a Unit by the id in the request
 exports.update = (req, res) => {
+  const item = {
+    block: req.body.block,
+    floor: req.body.floor,
+    unit: req.body.unit,
+    price: req.body.price,
+    unitnum: req.body.unitnum,
+    isavailable: req.body.isavailable,
+  };
   if (!item) {
     return res.status(400).send({
       message: "Data to update can not be empty!",
     });
   }
-
   const id = req.params.id;
-
   Unit.findByIdAndUpdate(id, item, { useFindAndModify: false })
     .then((data) => {
       if (!data) {
         res.status(404).send({
           message: `Cannot update Unit with id=${id}. Maybe Unit was not found!`,
         });
-      } else res.send({ message: "Unit was updated successfully." });
+      } else {
+        res.send({
+          message: "Unit was updated successfully.",
+        });
+      }
     })
     .catch((err) => {
       res.status(500).send({
