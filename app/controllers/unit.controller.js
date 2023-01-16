@@ -51,7 +51,7 @@ exports.create = (req, res) => {
 
 // Retrieve all Units from the database.
 exports.findAll = (req, res) => {
-  Unit.find()
+  Unit.find(req.query)
     .then((data) => {
       res.send(data);
     })
