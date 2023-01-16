@@ -7,6 +7,7 @@ const db = {};
 db.mongoose = mongoose;
 db.url = dbConfig.url;
 db.units = require("./unit.model.js")(mongoose);
+db.units4rm = require("./unit4rm.model.js")(mongoose);
 db.tutorials = require("./tutorial.model.js")(mongoose);
 
 module.exports = db;
